@@ -6,7 +6,7 @@ In an effort to familiarize myself with javascript terms and practice javascript
 
 ## Installation
 
-Live site at[https://skelly1389.github.io/Code_Quiz/](https://skelly1389.github.io/Code_Quiz/)
+Live site at [https://skelly1389.github.io/Code_Quiz/](https://skelly1389.github.io/Code_Quiz/)
 
 ## Usage
 
@@ -19,7 +19,7 @@ Live site at[https://skelly1389.github.io/Code_Quiz/](https://skelly1389.github.
 -Retry button resets the page
 
  :
- (assets/screenshots/screenshot1.png)
+ ![quiz](assets/screenshots/screenshot1.png)
     
 
 ## License
