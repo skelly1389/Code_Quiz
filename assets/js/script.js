@@ -3,10 +3,12 @@ var startButton = document.querySelector(".strtbtn");
 var viewScores = document.querySelector(".viewscores");
 var currentQuestion;
 var score = 0;
-var secondsLeft = 5;
+var secondsLeft = 30;
 var questNum = 0;
 var questScreen = document.querySelector(".gamescreen");
 var answScreen = document.querySelector(".answers");
+var timerInterval;
+var score;
 var quest;
 var answ1;
 var answ2;
@@ -58,11 +60,13 @@ function countDown() {
       timeLeft.textContent = secondsLeft;
   
       if(secondsLeft === 0) {
-        gameOver();
+        score += secondsLeft;
+        timeLeft.textContent = 0;
         clearInterval(timerInterval);
+        gameOver();
       }
-  
     }, 1000);
+    writeScreen();
   }
 
 function writeScreen() {
@@ -71,9 +75,9 @@ function writeScreen() {
   answScreen.innerHTML = " ";
   }
 
-  if (questNum>=5){
-    gameOver()
-    return;
+  if (questNum >=5) {
+    score += secondsLeft;
+    gameOver();
   }
 
   var currentQuestion = questionPool[questNum];
@@ -109,32 +113,36 @@ function writeScreen() {
   answScreen.appendChild(answ4);
   
   questNum += 1;
-  console.log(questNum);
   }
 
   function gameOver(){
     questScreen.innerHTML = " ";
     answScreen.innerHTML = " ";
-    return;
+    timeLeft = 0;
+    var gameOver = document.createElement("h2");
+    var text = document.createTextNode("GAME OVER");
+    gameOver.appendChild(text);
+    questScreen.appendChild(gameOver);
+    var userScore = document.createElement("h3");
+    var text = document.createTextNode("Score: " + score);
+    userScore.appendChild(text);
+    questScreen.appendChild(userScore);
   }
 
   function startGame() {
-    secondsLeft = 5;  
+    startButton.innerHTML = " ";
     countDown();
-    writeScreen();
   }
 
   startButton.addEventListener("click", startGame);
   answScreen.addEventListener('click', event => {
     var currentQuestion = questionPool[(questNum - 1)];
     var ansSelect = event.target.textContent;
-    console.log(currentQuestion.correct);
-    console.log(ansSelect);
     if (ansSelect !== currentQuestion.correct) {
-      secondsLeft -= 5;
+      score -= 5;
       }
     if (ansSelect == currentQuestion.correct) {
-    secondsLeft += 5;
-		startGame();
+      score += 5;
+		  startGame();
     }
 });
