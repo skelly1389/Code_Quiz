@@ -54,7 +54,7 @@ function countDown() {
       secondsLeft--;
       timeLeft.textContent = secondsLeft;
   
-      if(secondsLeft === 0) {
+      if(secondsLeft <= 0) {
         score = timeLeft.textContent;
         timeLeft.textContent = 0;
         clearInterval(timerInterval);
