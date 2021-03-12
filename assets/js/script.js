@@ -55,7 +55,7 @@ function countDown() {
       timeLeft.textContent = secondsLeft;
   
       if(secondsLeft === 0) {
-        score += secondsLeft;
+        score = timeLeft.textContent;
         timeLeft.textContent = 0;
         clearInterval(timerInterval);
         gameOver();
@@ -70,7 +70,7 @@ function writeScreen() {
   }
 
   if (questNum >=5) {
-    score += secondsLeft;
+    score = timeLeft.textContent;
     gameOver();
   }
 
@@ -136,23 +136,30 @@ function writeScreen() {
 
   function startGame() {
     startButton.innerHTML = " ";
-    score = 0;
-    secondsLeft = 30;
     clearInterval(timerInterval);
     writeScreen();
     countDown();
   }
 
-  startButton.addEventListener("click", startGame);
+  function scoreScreen(){
+    questScreen.innerHTML = " ";
+    answScreen.innerHTML = " ";
+    highScores = JSON.parse(localStorage.getItem('highscores')) || [];
+    for (var i = 0; i < highScores.length; i++) {
+      console.log(highScores[i]);
+    }
+  }
+
+  startButton.addEventListener('click', startGame);
+  viewScores.addEventListener('click', scoreScreen);
 
   answScreen.addEventListener('click', event => {
     var currentQuestion = questionPool[(questNum - 1)];
     var ansSelect = event.target.textContent;
     if (ansSelect !== currentQuestion.correct) {
-      score -= 5;
+      secondsLeft -= 5;
       }
     if (ansSelect == currentQuestion.correct) {
-      score += 5;
 		  startGame();
     }
   });
