@@ -55,7 +55,7 @@ var questionPool = [
 ]
 
 function countDown() {
-    var timerInterval = setInterval(function() {
+      timerInterval = setInterval(function() {
       secondsLeft--;
       timeLeft.textContent = secondsLeft;
   
@@ -66,7 +66,6 @@ function countDown() {
         gameOver();
       }
     }, 1000);
-    writeScreen();
   }
 
 function writeScreen() {
@@ -127,10 +126,16 @@ function writeScreen() {
     var text = document.createTextNode("Score: " + score);
     userScore.appendChild(text);
     questScreen.appendChild(userScore);
+    var enterName = prompt("Enter Initials!");
+    while (enterName.length > 3){
+      enterName = prompt("Enter Initials!");
+    }
   }
 
   function startGame() {
     startButton.innerHTML = " ";
+    clearInterval(timerInterval);
+    writeScreen();
     countDown();
   }
 
