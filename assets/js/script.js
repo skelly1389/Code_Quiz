@@ -148,7 +148,7 @@ function writeScreen() {
     var restart = document.createElement("h3");
     var text = document.createTextNode("Retry?");
     restart.appendChild(text);
-    startButton.appendChild(restart);
+    questScreen.appendChild(restart);
     highScores = JSON.parse(localStorage.getItem('highscores')) || [];
     for (var i = 0; i < highScores.length; i++) {
     var currentScore = highScores[i];
