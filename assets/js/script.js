@@ -9,12 +9,7 @@ var questScreen = document.querySelector(".gamescreen");
 var answScreen = document.querySelector(".answers");
 var timerInterval;
 var score;
-var quest;
-var answ1;
-var answ2;
-var answ3;
-var answ4;
-var answc;
+var highScores= [];
 
 var questionPool = [
     {"question": "Commonly used data types DO NOT include:",
@@ -126,20 +121,30 @@ function writeScreen() {
     var text = document.createTextNode("Score: " + score);
     userScore.appendChild(text);
     questScreen.appendChild(userScore);
+    var restart = document.createElement("h3");
+    var text = document.createTextNode("Retry?");
+    restart.appendChild(text);
+    questScreen.appendChild(restart);
     var enterName = prompt("Enter Initials!");
     while (enterName.length > 3){
       enterName = prompt("Enter Initials!");
     }
+    var highScores = JSON.parse(localStorage.getItem('highscores')) || [];
+    highScores.push({name: enterName, score: score});
+    localStorage.setItem('highscores', JSON.stringify(highScores));
   }
 
   function startGame() {
     startButton.innerHTML = " ";
+    score = 0;
+    secondsLeft = 30;
     clearInterval(timerInterval);
     writeScreen();
     countDown();
   }
 
   startButton.addEventListener("click", startGame);
+
   answScreen.addEventListener('click', event => {
     var currentQuestion = questionPool[(questNum - 1)];
     var ansSelect = event.target.textContent;
@@ -150,4 +155,9 @@ function writeScreen() {
       score += 5;
 		  startGame();
     }
-});
+  });
+
+  questScreen.addEventListener('click', event => {
+    var restart = event.target.textContent;
+    location.reload();
+  });
