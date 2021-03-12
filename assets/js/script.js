@@ -142,11 +142,20 @@ function writeScreen() {
   }
 
   function scoreScreen(){
+    startButton.innerHTML = " ";
     questScreen.innerHTML = " ";
     answScreen.innerHTML = " ";
+    var restart = document.createElement("h3");
+    var text = document.createTextNode("Retry?");
+    restart.appendChild(text);
+    startButton.appendChild(restart);
     highScores = JSON.parse(localStorage.getItem('highscores')) || [];
     for (var i = 0; i < highScores.length; i++) {
-      console.log(highScores[i]);
+    var currentScore = highScores[i];
+    var viewScores = document.createElement("h4");
+    var text = document.createTextNode(currentScore.name + ": " + currentScore.score);
+    viewScores.appendChild(text);
+    startButton.appendChild(viewScores);
     }
   }
 
